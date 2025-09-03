@@ -1,0 +1,46 @@
+package com.anubhav.ecom.controllers;
+
+import com.anubhav.ecom.dtos.ProductDTO;
+import com.anubhav.ecom.services.ProductService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/products")
+@RequiredArgsConstructor
+public class ProductController
+{
+    private final ProductService productService;
+
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> getAllProducts(@RequestParam(required = false, name = "categoryId") Byte categoryId)
+    {
+        List<ProductDTO> products = productService.getAllProducts(categoryId);
+        return ResponseEntity.ok(products);
+    }
+
+    @PostMapping
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO inputProduct)
+    {
+        ProductDTO product = productService.createProduct(inputProduct);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO inputProduct)
+    {
+        ProductDTO product = productService.updateProduct(id, inputProduct);
+        return ResponseEntity.ok(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id)
+    {
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
+}

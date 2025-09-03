@@ -1,0 +1,26 @@
+package com.anubhav.ecom.validation;
+
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
+public class LowercaseValidator implements ConstraintValidator<Lowercase, String>
+{
+
+    @Override
+    public void initialize(Lowercase constraintAnnotation) {
+        // You can use this if you need to read annotation properties
+    }
+
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context)
+    {
+        if (value == null)
+        {
+            return true; // let @NotNull handle null checks if needed
+        }
+
+        return value.equals(value.toLowerCase());
+    }
+}
+
