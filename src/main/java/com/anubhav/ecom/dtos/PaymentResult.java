@@ -1,12 +1,13 @@
 package com.anubhav.ecom.dtos;
 
+import com.anubhav.ecom.models.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
 @AllArgsConstructor
-public class CheckoutResponseDTO
+@Data
+public class PaymentResult
 {
     private Long orderId;
-    private String checkoutUrl;
+    private PaymentStatus status;
 }
